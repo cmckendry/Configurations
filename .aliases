@@ -7,7 +7,7 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-alias d="cd ~/Documents/Dropbox"
+alias d="cd ~/Dropbox"
 alias p="cd ~/Projects"
 alias g="git"
 alias h="history"
@@ -43,6 +43,9 @@ alias sudo='sudo '
 
 # Gzip-enabled `curl`
 alias gurl="curl --compressed"
+
+# Open using BBEdit
+alias bbe="open -a BBEdit "
 
 # Get OS X Software Updates, and update Homebrew, npm, and their installed packages
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; npm update npm -g; npm update -g'
