@@ -47,6 +47,10 @@ alias gurl="curl --compressed"
 # Open using BBEdit
 alias bbe="open -a BBEdit "
 
+# Open using Chrome
+# TODO: Make this work correctly on Linux as well
+alias chrome="open -a Google\ Chrome "
+
 # Get OS X Software Updates, and update Homebrew, npm, and their installed packages
 alias update='sudo softwareupdate -i -a; brew update; brew upgrade; npm update npm -g; npm update -g'
 

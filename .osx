@@ -291,7 +291,7 @@ defaults write com.apple.dock show-process-indicators -bool true
 defaults write com.apple.dock launchanim -bool true
 
 # Speed up Mission Control animations
-defaults write com.apple.dock expose-animation-duration -float 0.1
+defaults write com.apple.dock expose-animation-duration -float 0.3
 
 # Don’t group windows by application in Mission Control
 # (i.e. use the old Exposé behavior instead)
@@ -302,8 +302,8 @@ defaults write com.apple.dock dashboard-in-overlay -bool true
 
 # Remove the auto-hiding Dock delay
 defaults write com.apple.Dock autohide-delay -float 0
-# Remove the animation when hiding/showing the Dock
-defaults write com.apple.dock autohide-time-modifier -float 0
+# Enable animation when hiding/showing the Dock
+defaults write com.apple.dock autohide-time-modifier -float 1
 
 # Enable the 2D Dock
 #defaults write com.apple.dock no-glass -bool true
@@ -422,10 +422,10 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 defaults write com.apple.terminal StringEncodings -array 4
 
 # Use a modified version of the Pro theme by default in Terminal.app
-open "$HOME/init/Mathias.terminal"
-sleep 1 # Wait a bit to make sure the theme is loaded
-defaults write com.apple.Terminal "Default Window Settings" -string "Mathias"
-defaults write com.apple.Terminal "Startup Window Settings" -string "Mathias"
+#open "$HOME/init/Mathias.terminal"
+#sleep 1 # Wait a bit to make sure the theme is loaded
+#defaults write com.apple.Terminal "Default Window Settings" -string "Mathias"
+#defaults write com.apple.Terminal "Startup Window Settings" -string "Mathias"
 
 # Enable “focus follows mouse” for Terminal.app and all X11 apps
 # i.e. hover over a window and start typing in it without clicking first
