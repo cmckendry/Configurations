@@ -1,8 +1,16 @@
 #!/bin/bash
 cd "$(dirname "$0")"
+DIR=`pwd`
 git pull
 function doIt() {
-	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" -av . ~
+	#rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "README.md" -av . ~
+	for FILE in `find . -maxdepth 1 -type f -iname ".*"`
+	do
+		if [ -f ~/$FILE ]; then
+			rm -f ~/$FILE
+		fi
+		ln -s "$DIR/$FILE" ~/
+	done
 }
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
 	doIt
