@@ -18,6 +18,9 @@ alias s="subl ."
 alias o="open"
 alias oo="open ."
 
+# Always run vim as root, but with my own config
+alias vim=sudo vim -u ~/.vimrc 
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
