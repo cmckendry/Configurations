@@ -1,17 +1,17 @@
 " Make Vim more useful
-"set nocompatible
+set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 " Enhance command-line completion
 "set wildmenu
 " Allow cursor keys in insert mode
-"set esckeys
+set esckeys
 " Allow backspace in insert mode
-"set backspace=indent,eol,start
+set backspace=indent,eol,start
 " Optimize for fast terminal connections
-"set ttyfast
+set ttyfast
 " Add the g flag to search/replace by default
-"set gdefault
+set gdefault
 " Use UTF-8 without BOM
 "set encoding=utf-8 nobomb
 " Change mapleader
@@ -20,8 +20,8 @@ set clipboard=unnamed
 "set binary
 "set noeol
 " Centralize backups, swapfiles and undo history
-"set backupdir=~/.vim/backups
-"set directory=~/.vim/swaps
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
 "if exists("&undodir")
 "	set undodir=~/.vim/undo
 "endif
@@ -58,7 +58,7 @@ set noerrorbells
 " Don’t reset cursor to start of line when moving around.
 set nostartofline
 " Show the cursor position
-"set ruler
+set ruler
 " Don’t show the intro message when starting Vim
 set shortmess=atI
 " Show the current mode
