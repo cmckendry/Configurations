@@ -130,3 +130,6 @@ done
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+alias cloud="ssh -i ~/Dropbox/cmckey.pem ubuntu@ec2-174-129-78-223.compute-1.amazonaws.com"
+alias phonehome="ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com"
