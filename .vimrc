@@ -20,10 +20,10 @@ set gdefault
 "set binary
 "set noeol
 " Centralize backups, swapfiles and undo history
-set backupdir=/home/cmckendry/.vim/backups
-set directory=/home/cmckendry/.vim/swaps
+set backupdir=/home/carter/.vim/backups
+set directory=/home/carter/.vim/swaps
 "if exists("&undodir")
-"	set undodir=/home/cmckendry/.vim/undo
+"	set undodir=/home/carter/.vim/undo
 "endif
 
 " Respect modeline in files
