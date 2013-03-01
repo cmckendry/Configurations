@@ -1,3 +1,4 @@
+let os=substitute(system('uname'), '\n', '', '')
 " Make Vim more useful
 set nocompatible
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
@@ -20,8 +21,14 @@ set gdefault
 "set binary
 "set noeol
 " Centralize backups, swapfiles and undo history
-set backupdir=/home/carter/.vim/backups
-set directory=/home/carter/.vim/swaps
+
+if os == 'Darwin' || os == 'Mac'
+  set backupdir=/Users/carter/.vim/backups
+  set directory=/Users/carter/.vim/swaps
+else
+  set backupdir=/home/carter/.vim/backups
+  set directory=/home/carter/.vim/swaps
+endif
 "if exists("&undodir")
 "	set undodir=/home/carter/.vim/undo
 "endif
