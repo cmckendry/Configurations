@@ -17,4 +17,3 @@ export LESS_TERMCAP_md="$ORANGE"
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
->>>>>>> 6383a3fdf0df521d0fda5b11b92849870c30b9e2
