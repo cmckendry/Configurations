@@ -44,4 +44,4 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 alias wget="curl -O"
 
-cd ~/Configurations && git pull && cd
+cd ~/Configurations && git pull > /dev/null && cd
