@@ -73,7 +73,7 @@ set showmode
 " Show the filename in the window titlebar
 set title
 " Show the (partial) command as it’s being typed
-"set showcmd
+set showcmd
 " Use relative line numbers
 "if exists("&relativenumber")
 "	set relativenumber
