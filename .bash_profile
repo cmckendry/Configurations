@@ -42,6 +42,6 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 # Finished adapting your PATH environment variable for use with MacPorts.
 
-alias wget="curl -O"
+#alias wget="curl -O"
 
 cd ~/Configurations && git pull > /dev/null && cd
