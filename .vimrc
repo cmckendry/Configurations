@@ -30,7 +30,7 @@ else
   set directory=/home/carter/.vim/swaps
 endif
 "if exists("&undodir")
-"	set undodir=/home/carter/.vim/undo
+"  set undodir=/home/carter/.vim/undo
 "endif
 
 " Respect modeline in files
@@ -76,28 +76,32 @@ set title
 set showcmd
 " Use relative line numbers
 "if exists("&relativenumber")
-"	set relativenumber
-"	au BufReadPost * set relativenumber
+"  set relativenumber
+"  au BufReadPost * set relativenumber
 "endif
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
 " Strip trailing whitespace (,ss)
-"function! StripWhitespace()
-"	let save_cursor = getpos(".")
-"	let old_query = getreg('/')
-"	:%s/\s\+$//e
-"	call setpos('.', save_cursor)
-"	call setreg('/', old_query)
-"endfunction
-"noremap <leader>ss :call StripWhitespace()<CR>
+function! StripWhitespace()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
-noremap <leader>W :w !sudo tee % > /dev/null<CR>
+noremap <buffer> <S-w> :w !sudo tee % > /dev/null<CR>
 
 " Automatic commands
 "if has("autocmd")
-"	" Enable file type detection
-"	filetype on
-"	" Treat .json files as .js
-"	autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+"  " Enable file type detection
+"  filetype on
+"  " Treat .json files as .js
+"  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
 "endif
+
+" Run as python and show results (Shift-P)
+noremap <buffer> <S-p> :w<CR>:!/usr/bin/env python % <CR>
+let g:neocomplcache_enable_at_startup = 1
