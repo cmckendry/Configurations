@@ -45,3 +45,7 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 #alias wget="curl -O"
 
 cd ~/Configurations && git pull > /dev/null && cd
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
