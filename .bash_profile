@@ -44,6 +44,27 @@ export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 #alias wget="curl -O"
 
+function vpn-connect {
+echo "tell application \"System Events\"
+        tell current location of network preferences
+                set VPN to service \"1stDibs\" -- your VPN name here
+                if exists VPN then connect VPN
+                repeat while (current configuration of VPN is not connected)
+                    delay 1
+                end repeat
+        end tell
+end tell" | /usr/bin/env osascript
+}
+
+function vpn-disconnect {
+"tell application \"System Events\"
+        tell current location of network preferences
+                set VPN to service \"1stDibs\" -- your VPN name here
+                if exists VPN then disconnect VPN
+        end tell
+end tell" | /usr/bin/env osascript
+}
+
 cd ~/Configurations && git pull > /dev/null && cd
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
