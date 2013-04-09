@@ -1,4 +1,5 @@
-# Mathias’s dotfiles
+# Carter’s dotfiles
+### and other configurations that are pretty neat
 
 ## Installation
 
