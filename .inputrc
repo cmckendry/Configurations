@@ -39,6 +39,6 @@ set convert-meta off
 # Use Alt/Meta + Delete to delete the preceding word
 "\e[3;3~": kill-word
 
-# Enable command-shift left and right to skip by word
+# Enable CTRL-SHIFT-Left and CTRL-SHIFT-Right to skip by word
 "\e[1;6D": backward-word
 "\e[1;6C": forward-word
