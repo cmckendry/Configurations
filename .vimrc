@@ -106,5 +106,5 @@ noremap <buffer> <S-w> :w !sudo tee % > /dev/null<CR>
 noremap <buffer> <S-p> :w<CR>:!/usr/bin/env python % <CR>
 let g:neocomplcache_enable_at_startup = 1
 
-# Use tab key as escape to switch modes
+" Use tab key as escape to switch modes
 imap <tab> <esc>
