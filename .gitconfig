@@ -29,6 +29,8 @@
 	loggo = log --graph --decorate --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	# Get back to a useful state by any means necessary
 	unfuck = !git fetch origin && git reset --hard FETCH_HEAD && git clean -f -x -d
+  # View files changed in last N commits
+  last = "!f() { git diff --name-status -r "HEAD~$1"; }; f"
 
 [apply]
 	# Detect whitespace errors when applying a patch
