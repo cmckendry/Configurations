@@ -108,3 +108,9 @@ let g:neocomplcache_enable_at_startup = 1
 
 " Use tab key as escape to switch modes
 imap <tab> <esc>
+
+" Make crontab actually work
+if $VIM_CRONTAB == 'true'
+  set nobackup
+  set nowritebackup
+endif

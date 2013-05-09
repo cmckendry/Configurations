@@ -38,6 +38,9 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 # MacPorts Installer addition on 2012-10-12_at_15:58:56: adding an appropriate PATH variable for use with MacPorts.
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
+# Prevent the SUPER ANNOYING "temp file must be edited in place" error from crontab
+alias crontab="VIM_CRONTAB=true crontab"
+
 #alias wget="curl -O"
 
 function vpn-connect {
