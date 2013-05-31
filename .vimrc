@@ -95,12 +95,12 @@ noremap <leader>ss :call StripWhitespace()<CR>
 noremap <buffer> <S-w> :w !sudo tee % > /dev/null<CR>
 
 " Automatic commands
-"if has("autocmd")
-"  " Enable file type detection
-"  filetype on
-"  " Treat .json files as .js
-"  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
-"endif
+if has("autocmd")
+  " Enable file type detection
+  filetype on
+  " Treat .json files as .js
+  autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+endif
 
 " Run as python and show results (Shift-P)
 noremap <buffer> <S-p> :w<CR>:!/usr/bin/env python % <CR>

@@ -50,7 +50,10 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 alias sudo='sudo '
 
 # Gzip-enabled `curl`
-alias gurl="curl --compressed"
+alias gurl='curl --compressed'
+
+# Get week number
+alias week='date +%V'
 
 # Open using BBEdit
 alias bbe="open -a BBEdit "
@@ -143,7 +146,6 @@ done
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
-
 alias cloud="ssh -i ~/Dropbox/cmckey.pem ubuntu@ec2-174-129-78-223.compute-1.amazonaws.com"
 alias phonehome="ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com"
 alias hometop='ssh -p 17235 carter@ec2-174-129-78-223.compute-1.amazonaws.com -L 9386:192.168.5.118:5900 -f -N && open "vnc://localhost:9386"'

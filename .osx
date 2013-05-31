@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # ~/.osx — http://mths.be/osx
 
@@ -21,6 +21,9 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # Menu bar: enable transparency
 defaults write NSGlobalDomain AppleEnableMenuBarTransparency -bool true
 
+# Set standby delay to 24 hours (default is 1 hour)
+sudo pmset -a standbydelay 86400
+
 # Menu bar: show remaining battery time (on pre-10.8); hide percentage
 defaults write com.apple.menuextra.battery ShowPercent -string "NO"
 defaults write com.apple.menuextra.battery ShowTime -string "YES"
@@ -30,6 +33,12 @@ defaults write com.apple.menuextra.battery ShowTime -string "YES"
 
 # Scrollbars only when scrolling, regardless of device
 defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
+
+# Set highlight color to green
+defaults write NSGlobalDomain AppleHighlightColor -string '0.764700 0.976500 0.568600'
+
+# Set sidebar icon size to medium
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
 
 # Disable smooth scrolling
 # (Uncomment if you’re on an older Mac that messes up the animation)
@@ -89,6 +98,9 @@ systemsetup -setcomputersleep Off > /dev/null
 
 # Check for software updates daily, not just once per week
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
+
+# Disable Notification Center and remove the menu bar icon
+launchctl unload -w /System/Library/LaunchAgents/com.apple.notificationcenterui.plist
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -205,6 +217,9 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 # Finder: show status bar
 defaults write com.apple.finder ShowStatusBar -bool true
 
+# Finder: show path bar
+defaults write com.apple.finder ShowPathbar -bool true
+
 # Finder: allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
@@ -216,6 +231,12 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 
 # Disable the warning when changing a file extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+# Enable spring loading for directories
+defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+
+# Remove the spring loading delay for directories
+defaults write NSGlobalDomain com.apple.springing.delay -float 0
 
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
@@ -266,16 +287,18 @@ defaults write com.apple.finder EmptyTrashSecurely -bool true
 # Enable AirDrop over Ethernet and on unsupported Macs running Lion
 defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
+# Enable the MacBook Air SuperDrive on any Mac
+sudo nvram boot-args="mbasd=1"
+
 # Show the ~/Library folder
 chflags nohidden ~/Library
 
 # Remove Dropbox’s green checkmark icons in Finder
-file=/Applications/Dropbox.app/Contents/Resources/check.icns
+file=/Applications/Dropbox.app/Contents/Resources/emblem-dropbox-uptodate.icns
 [ -e "$file" ] && mv -f "$file" "$file.bak"
-unset file
 
 ###############################################################################
-# Dock & hot corners                                                          #
+# Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
 # Enable highlight hover effect for the grid view of a stack (Dock)
@@ -308,8 +331,11 @@ defaults write com.apple.dock expose-group-by-app -bool false
 # Don’t show Dashboard as a Space
 defaults write com.apple.dock dashboard-in-overlay -bool true
 
+# Disable Dashboard
+defaults write com.apple.dashboard mcx-disabled -bool true
+
 # Remove the auto-hiding Dock delay
-defaults write com.apple.Dock autohide-delay -float 0
+defaults write com.apple.dock autohide-delay -float 0
 # Enable animation when hiding/showing the Dock
 defaults write com.apple.dock autohide-time-modifier -float 1
 
@@ -344,6 +370,7 @@ find ~/Library/Application\ Support/Dock -name "*.db" -maxdepth 1 -delete
 #  7: Dashboard
 # 10: Put display to sleep
 # 11: Launchpad
+# 12: Notification Center
 # Top left screen corner → Mission Control
 defaults write com.apple.dock wvous-tl-corner -int 2
 defaults write com.apple.dock wvous-tl-modifier -int 0
