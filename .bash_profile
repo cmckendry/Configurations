@@ -67,7 +67,9 @@ function vpn-disconnect {
 end tell" | /usr/bin/env osascript
 }
 
-cd ~/Configurations && git pull > /dev/null && cd
+cd ~/Configurations && git pull &> /dev/null &
+disown $!
+cd
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
