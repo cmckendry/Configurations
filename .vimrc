@@ -1,6 +1,8 @@
 let os=substitute(system('uname'), '\n', '', '')
 " Make Vim more useful
 set nocompatible
+" PATH O GEN
+execute pathogen#infect()
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 " Enhance command-line completion
@@ -107,6 +109,11 @@ noremap <buffer> <S-p> :w<CR>:!/usr/bin/env python % <CR>
 let g:neocomplcache_enable_at_startup = 1
 
 " Use tab key as escape to switch modes
+nnoremap <Tab> <Esc>
+vnoremap <Tab> <Esc>gV
+onoremap <Tab> <Esc>
+inoremap <Tab> <Esc>`^
+inoremap <Leader><Tab> <Tab>
 imap <tab> <esc>
 
 " Make crontab actually work

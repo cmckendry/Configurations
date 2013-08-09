@@ -22,6 +22,7 @@ alias oo="open ."
 
 # Always run vim as root, but with my own config
 alias vim='sudo vim -u ~/.vimrc '
+#alias vim='vim sudo:'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -141,6 +142,9 @@ alias map="xargs -n1"
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
   alias "$method"="lwp-request -m '$method'"
 done
+
+# Mosh is awesome. Use mosh by default.
+#alias ssh="~/Configurations/moshalias.pl"
 
 # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
