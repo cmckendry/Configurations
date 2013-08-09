@@ -30,7 +30,7 @@
   # Fancy log view
   loggo = log --graph --decorate --pretty=format:'%Cred%h%Creset -%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   # Get back to a useful state by any means necessary
-  unfuck = !git fetch origin && git reset --hard FETCH_HEAD && git clean -f -x -d && git submodule update
+  unfuck = !git fetch origin && git reset --hard FETCH_HEAD && git checkout . && git clean -f -x -d && git submodule update && git rebase --abort && git merge --abort
   # View files changed in last N commits
   last = "!f() { git diff --name-status -r "HEAD~$1"; }; f"
 
