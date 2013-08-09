@@ -91,6 +91,18 @@ function! StripWhitespace()
   call setreg('/', old_query)
 endfunction
 noremap <leader>ss :call StripWhitespace()<CR>
+
+" Convert tabs into spaces
+function! CleanUpTabs()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  :%s/\t/  /
+  :%s/\s\+$//e
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+noremap Ç :call CleanUpTabs()<CR>
+
 " Save a file as root (,W)
 noremap <buffer> <S-w> :w !sudo tee % > /dev/null<CR>
 
