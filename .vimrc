@@ -1,8 +1,6 @@
 let os=substitute(system('uname'), '\n', '', '')
 " Make Vim more useful
 set nocompatible
-" PATH O GEN
-execute pathogen#infect()
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
 " Enhance command-line completion
@@ -27,10 +25,15 @@ set gdefault
 if os == 'Darwin' || os == 'Mac'
   set backupdir=/Users/carter/.vim/backups
   set directory=/Users/carter/.vim/swaps
+  call pathogen#incubate('/Users/carter/.vim/bundle/{}')
 else
   set backupdir=/home/carter/.vim/backups
   set directory=/home/carter/.vim/swaps
+  set runtimepath+=/home/carter/.vim
+  call pathogen#incubate('/home/carter/.vim/bundle/{}')
 endif
+" PATH O GEN
+execute pathogen#infect()
 "if exists("&undodir")
 "  set undodir=/home/carter/.vim/undo
 "endif
