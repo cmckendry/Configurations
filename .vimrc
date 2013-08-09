@@ -136,3 +136,6 @@ if $VIM_CRONTAB == 'true'
   set nobackup
   set nowritebackup
 endif
+
+" Syntastic
+let g:syntastic_python_checkers=['pylint']
