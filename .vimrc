@@ -139,3 +139,5 @@ endif
 
 " Syntastic
 let g:syntastic_python_checkers=['pylint']
+let g:syntastic_puppet_checkers=['puppet','puppetlint']
+" let g:syntastic_puppet_puppetlint_args=[' --no-autoloader_layout-check ']
