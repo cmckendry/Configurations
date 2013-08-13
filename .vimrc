@@ -140,4 +140,16 @@ endif
 " Syntastic
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_puppet_checkers=['puppet','puppetlint']
-" let g:syntastic_puppet_puppetlint_args=[' --no-autoloader_layout-check ']
+
+" Folding
+set foldmethod=indent
+set foldcolumn=3
+setlocal shiftwidth=2
+highlight Folded ctermfg=DarkGreen ctermbg=Black
+nnoremap <space> za
+vnoremap <space> zf
+
+" YouCompleteMe
+let g:ycm_key_list_select_completion = ['<S-TAB>', 'Enter', '<Down>']
+let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_autoclose_preview_window_after_completion = 1
