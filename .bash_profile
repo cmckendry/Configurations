@@ -67,7 +67,7 @@ function vpn-disconnect {
 end tell" | /usr/bin/env osascript
 }
 
-cd ~/Configurations && git pull &> /dev/null &
+cd ~/Configurations && git pull &> /dev/null && git submodule update --init --recursive &> /dev/null &
 disown $!
 cd
 
