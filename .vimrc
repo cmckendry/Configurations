@@ -139,6 +139,7 @@ endif
 
 " Syntastic
 let g:syntastic_python_checkers=['pylint']
+let g:syntastic_python_pylint_args='--indent-string="  " --max-line-length=800 --msg-template="{path}:{line}: [{msg_id}] {msg}"'
 let g:syntastic_puppet_checkers=['puppet','puppetlint']
 
 " Folding

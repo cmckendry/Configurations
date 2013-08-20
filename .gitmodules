@@ -22,3 +22,6 @@
 [submodule ".vim/bundle/YouCompleteMe/python/ycm/completers/python/jedi"]
 	path = .vim/bundle/YouCompleteMe/python/ycm/completers/python/jedi
 	url = https://github.com/davidhalter/jedi.git
+[submodule ".vim/bundle/frisk"]
+	path = .vim/bundle/frisk
+	url = https://github.com/arecarn/frisk.git
