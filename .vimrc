@@ -154,3 +154,16 @@ vnoremap <space> zf
 let g:ycm_key_list_select_completion = ['<S-TAB>', 'Enter', '<Down>']
 let g:ycm_key_list_previous_completion = ['<Up>']
 let g:ycm_autoclose_preview_window_after_completion = 1
+
+" Sometimes relative line numbers are useful
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set relativenumber!
+    set number
+  else
+    set number!
+    set relativenumber
+  endif
+endfunc
+
+nnoremap ˜ :call NumberToggle()<cr>
