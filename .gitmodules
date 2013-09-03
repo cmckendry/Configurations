@@ -25,3 +25,15 @@
 [submodule ".vim/bundle/frisk"]
 	path = .vim/bundle/frisk
 	url = https://github.com/arecarn/frisk.git
+[submodule ".vim/bundle/easymotion"]
+	path = .vim/bundle/easymotion
+	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule ".vim/bundle/tabular"]
+	path = .vim/bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule ".vim/bundle/conque"]
+	path = .vim/bundle/conque
+	url = https://github.com/lrvick/Conque-Shell.git
+[submodule ".vim/bundle/gitgutter"]
+	path = .vim/bundle/gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git

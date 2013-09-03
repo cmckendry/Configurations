@@ -52,6 +52,10 @@ syntax on
 set cursorline
 " Make tabs as wide as two spaces
 set tabstop=2
+" Use spaces for tabs, damn it
+set expandtab
+" Indent automatically
+set smartindent
 " Show “invisible” characters
 set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
 set list
@@ -62,7 +66,7 @@ set ignorecase
 " Highlight dynamically as pattern is typed
 set incsearch
 " Always show status line
-"set laststatus=2
+set laststatus=2
 " Enable mouse in all modes
 set mouse=a
 " Disable error bells
@@ -167,3 +171,29 @@ function! NumberToggle()
 endfunc
 
 nnoremap ˜ :call NumberToggle()<cr>
+
+" Inserting useful, dynamic filler text
+nnoremap Ò :r !curl -s http://loripsum.net/api/plaintext/prude<cr>
+
+let g:EasyMotion_leader_key = '<S-e>'
+
+" Maybe
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+     if part[0] =~ '\v[%#<]'
+        let expanded_part = fnameescape(expand(part))
+        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+     endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:    ' . a:cmdline)
+  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
