@@ -197,3 +197,7 @@ function! s:RunShellCommand(cmdline)
   setlocal nomodifiable
   1
 endfunction
+
+" Make gitguttera calm down
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
