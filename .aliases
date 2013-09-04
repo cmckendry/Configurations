@@ -150,9 +150,12 @@ done
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
 alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
+
+# Remote access is neat
 alias cloud="ssh -i ~/Dropbox/cmckey.pem ubuntu@ec2-174-129-78-223.compute-1.amazonaws.com"
-alias phonehome="ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com"
-alias hometop='ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com -L 9386:192.168.5.118:5900 -f -N && open "vnc://localhost:9386"'
-alias phonework='vpn-connect && ssh carter@`grep '192.168.' ~/Dropbox/CarterBook.local.txt | head -1`'
-alias worktop='vpn-connect && open "vnc://`grep '192.168.' ~/Dropbox/CarterBook.local.txt | head -1`"'
-alias beast='ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com -L 9387:127.0.0.1:5900 -f -N && open "vnc://localhost:9387"'
+alias beast="ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com"
+alias beastvnc='ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com -L 9387:127.0.0.1:5900 -f -N && open "vnc://localhost:9387"'
+alias minami='ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com -L 9385:`grep '192.168.' ~/Dropbox/minami.txt | head -1`:22 -f -N && ssh -p 9385 localhost'
+alias minamivnc='ssh -p 17235 cmckendry@ec2-174-129-78-223.compute-1.amazonaws.com -L 9384:`grep '192.168.' ~/Dropbox/minami.txt | head -1`:5900 -f -N && open "vnc://localhost:9384"'
+alias workbook='vpn-connect && ssh carter@`grep '192.168.' ~/Dropbox/CarterBook.local.txt | head -1`'
+alias workbookvnc='vpn-connect && open "vnc://`grep '192.168.' ~/Dropbox/CarterBook.local.txt | head -1`"'
