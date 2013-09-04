@@ -198,6 +198,9 @@ function! s:RunShellCommand(cmdline)
   1
 endfunction
 
-" Make gitguttera calm down
+" Make gitgutter calm down
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
+
+" Use UltiSnips but make it leave Tab alone
+let g:UltiSnipsExpandTrigger="<S-x>"

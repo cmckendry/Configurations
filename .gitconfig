@@ -64,7 +64,7 @@
 [merge]
   # Include summaries of merged commits in newly created merge commit messages
   log = true
-	tool = vimdiff
+  tool = vimdiff
 
 # Use `origin` as the default remote on the `master` branch in all cases
 [branch "master"]
@@ -87,8 +87,8 @@
 [push]
   default = current
 [user]
-	name = Carter McKendry
-	email = carter@1stdibs.com
+  name = Carter McKendry
+  email = carter@1stdibs.com
 
 [hub]
 protocol = https
@@ -96,6 +96,6 @@ protocol = https
 [credential]
 helper = /opt/boxen/bin/boxen-git-credential
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [difftool]
-	prompt = false
+  prompt = false
