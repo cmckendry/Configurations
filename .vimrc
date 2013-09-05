@@ -72,6 +72,7 @@ set mouse=a
 " Disable error bells
 set noerrorbells
 " Don’t reset cursor to start of line when moving around.
+
 set nostartofline
 " Show the cursor position
 set ruler
@@ -205,3 +206,15 @@ let g:gitgutter_eager = 0
 
 " Use UltiSnips but make it leave Tab alone
 let g:UltiSnipsExpandTrigger="≈"
+
+" Airline
+let g:airline_powerline_fonts=0
+let g:airline_symbols = {}
+" unicode symbols
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = 'Þ'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.whitespace = 'Ξ'
+
