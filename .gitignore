@@ -15,3 +15,6 @@ Thumbs.db
 
 # NetRW history file
 .netrwhist
+
+# Have to distribute/build this one separately
+.vim/bundle/YouCompleteMe/python/ycm_core.so
