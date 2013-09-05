@@ -99,3 +99,7 @@ helper = /opt/boxen/bin/boxen-git-credential
   tool = vimdiff
 [difftool]
   prompt = false
+[web]
+  browser = ch
+[browser "ch"]
+  cmd = open -a \"/Applications/Google Chrome.app\"
