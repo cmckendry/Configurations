@@ -92,6 +92,9 @@ set showcmd
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
+noremap ∂ "zyy"zp
+noremap d "zyy"zp
+
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
   let save_cursor = getpos(".")
@@ -112,6 +115,7 @@ function! CleanUpTabs()
   call setreg('/', old_query)
 endfunction
 noremap Ç :call CleanUpTabs()<CR>
+noremap C :call CleanUpTabs()<CR>
 
 " Save a file as root (,W)
 noremap <buffer> <S-w> :w !sudo tee % > /dev/null<CR>
@@ -173,9 +177,11 @@ function! NumberToggle()
 endfunc
 
 nnoremap ˜ :call NumberToggle()<cr>
+nnoremap N :call NumberToggle()<cr>
 
 " Inserting useful, dynamic filler text
 nnoremap Ò :r !curl -s http://loripsum.net/api/plaintext/prude<cr>
+nnoremap L :r !curl -s http://loripsum.net/api/plaintext/prude<cr>
 
 let g:EasyMotion_leader_key = '<S-e>'
 
