@@ -106,12 +106,12 @@ noremap <leader>ss :call StripWhitespace()<CR>
 function! CleanUpTabs()
   let save_cursor = getpos(".")
   let old_query = getreg('/')
-  :%s/\t/  /
+  :%s/\t/  /e
   :%s/\s\+$//e
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction
-noremap Ç :call CleanUpTabs()<CR>
+noremap <silent> Ç :call CleanUpTabs()<CR>
 
 " Save a file as root (,W)
 noremap <buffer> <S-w> :w !sudo tee % > /dev/null<CR>
@@ -122,6 +122,8 @@ if has("autocmd")
   filetype on
   " Treat .json files as .js
   autocmd BufNewFile,BufRead *.json setfiletype json syntax=javascript
+  " Give a visual indicator of the PEP8 line-length guideline
+  autocmd BufNewFile,BufRead *.py match OverLength /\%81v.\+/
 endif
 
 " Run as python and show results (Shift-P)
@@ -143,10 +145,10 @@ if $VIM_CRONTAB == 'true'
 endif
 
 " Syntastic
-let g:syntastic_python_checkers=['pylint']
-let g:syntastic_python_pylint_args='--indent-string="  " --max-line-length=800 --msg-template="{path}:{line}: [{msg_id}] {msg}"'
-let g:syntastic_puppet_checkers=['puppet','puppetlint']
-let g:syntastic_puppet_puppetlint_args='--no-80chars-check --no-documentation-check --no-autoloader_layout-check'
+let g:syntastic_python_checkers        = ['pylint']
+let g:syntastic_python_pylint_args     = '--indent-string="  " --max-line-length=800 --msg-template="{path}:{line}: [{msg_id}] {msg}"'
+let g:syntastic_puppet_checkers        = ['puppet','puppetlint']
+let g:syntastic_puppet_puppetlint_args = '--no-80chars-check --no-documentation-check --no-autoloader_layout-check'
 
 " Folding
 set foldmethod=indent
@@ -157,8 +159,8 @@ nnoremap <space> za
 vnoremap <space> zf
 
 " YouCompleteMe
-let g:ycm_key_list_select_completion = ['<S-TAB>', 'Enter', '<Down>']
-let g:ycm_key_list_previous_completion = ['<Up>']
+let g:ycm_key_list_select_completion                = ['<S-TAB>', 'Enter', '<Down>']
+let g:ycm_key_list_previous_completion              = ['<Up>']
 let g:ycm_autoclose_preview_window_after_completion = 1
 
 " Sometimes relative line numbers are useful
@@ -173,6 +175,7 @@ function! NumberToggle()
 endfunc
 
 nnoremap ˜ :call NumberToggle()<cr>
+nnoremap N :call NumberToggle()<cr>
 
 " Inserting useful, dynamic filler text
 nnoremap Ò :r !curl -s http://loripsum.net/api/plaintext/prude<cr>
@@ -187,7 +190,7 @@ function! s:RunShellCommand(cmdline)
   for part in split(a:cmdline, ' ')
      if part[0] =~ '\v[%#<]'
         let expanded_part = fnameescape(expand(part))
-        let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+        let expanded_cmdline = substitute( expanded_cmdline, part, expanded_part, '')
      endif
   endfor
   botright new
@@ -202,19 +205,23 @@ endfunction
 
 " Make gitgutter calm down
 let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
+let g:gitgutter_eager    = 0
 
 " Use UltiSnips but make it leave Tab alone
-let g:UltiSnipsExpandTrigger="≈"
+let g:UltiSnipsSnippetDirectories = [ "UltiSnips", "snippets" ]
+let g:UltiSnipsSnippetsDir        = '~/.vim/snippets/'
+let g:UltiSnipsExpandTrigger      = "≈"
 
 " Airline
-let g:airline_powerline_fonts=0
-let g:airline_symbols = {}
+let g:airline_powerline_fonts = 0
+let g:airline_symbols         = {}
 " unicode symbols
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = 'Þ'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
+let g:airline_left_sep           = '▶'
+let g:airline_right_sep          = '◀'
+let g:airline_symbols.linenr     = 'Þ'
+let g:airline_symbols.branch     = '⎇'
+let g:airline_symbols.paste      = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 
+" Lines that are too long get colored red
+highlight OverLength ctermbg = red ctermfg = white guibg = #592929
