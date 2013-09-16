@@ -21,4 +21,3 @@ else
   fi
 fi
 unset doIt
-source ~/.bash_profile
