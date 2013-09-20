@@ -33,7 +33,7 @@ let userhomedir  = substitute(system('echo ~' . realuser), '\n', '', '')
 let &backupdir   = userhomedir . '/.vim/backups'
 let &directory   = userhomedir . '/.vim/swaps'
 let &undodir     = userhomedir . '/.vim/undo'
-let &runtimepath = userhomedir . '/.vim,' . &runtimepath
+let &runtimepath = userhomedir . '/.vim,' . &runtimepath . ',' . userhomedir . '/.vim/after'
 call pathogen#incubate(userhomedir . "/.vim/bundle/{}")
 
 " PATH O GEN
