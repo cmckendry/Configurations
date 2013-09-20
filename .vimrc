@@ -22,16 +22,20 @@ set binary
 set noeol
 
 " Centralize backups, swapfiles and undo history
+" even when running under sudo
 if strlen($SUDO_USER)
   let realuser    = $SUDO_USER
 else
   let realuser    = $USER
 endif
-  let userhomedir = substitute(system('echo ~' . realuser), '\n', '', '')
-  let &backupdir  = userhomedir . '/.vim/backups'
-  let &directory  = userhomedir . '/.vim/swaps'
-  let &undodir    = /home/carter/.vim/undo
-  call pathogen#incubate(userhomedir . "/.vim/bundle/{}")
+
+let userhomedir  = substitute(system('echo ~' . realuser), '\n', '', '')
+let &backupdir   = userhomedir . '/.vim/backups'
+let &directory   = userhomedir . '/.vim/swaps'
+let &undodir     = userhomedir . '/.vim/undo'
+let &runtimepath = userhomedir . '/.vim,' . &runtimepath
+call pathogen#incubate(userhomedir . "/.vim/bundle/{}")
+
 " PATH O GEN
 execute pathogen#infect()
 
