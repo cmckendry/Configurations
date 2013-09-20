@@ -31,8 +31,17 @@ endif
 
 let userhomedir  = substitute(system('echo ~' . realuser), '\n', '', '')
 let &backupdir   = userhomedir . '/.vim/backups'
+if !isdirectory(&backupdir)
+  call mkdir(&backupdir, "p")
+endif
 let &directory   = userhomedir . '/.vim/swaps'
+if !isdirectory(&directory)
+  call mkdir(&directory, "p")
+endif
 let &undodir     = userhomedir . '/.vim/undo'
+if !isdirectory(&undodir)
+  call mkdir(&undodir, "p")
+endif
 let &runtimepath = userhomedir . '/.vim,' . &runtimepath . ',' . userhomedir . '/.vim/after'
 call pathogen#incubate(userhomedir . "/.vim/bundle/{}")
 
@@ -93,6 +102,7 @@ set showcmd
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
 
+" Hit option-D to duplicate the current line
 noremap ∂ "zyy"zp
 noremap d "zyy"zp
 
@@ -115,6 +125,9 @@ function! CleanUpTabs()
   call setpos('.', save_cursor)
   call setreg('/', old_query)
 endfunction
+
+" Hit option-shift-C to clean up the buffer
+" turns tabs into spaces and removes trailing white space
 noremap <silent> Ç :call CleanUpTabs()<CR>
 noremap <silent> C :call CleanUpTabs()<CR>
 
@@ -231,3 +244,9 @@ let g:airline_symbols.whitespace = 'Ξ'
 
 " Lines that are too long get colored red
 highlight OverLength ctermbg = red ctermfg = white guibg = #592929
+
+" Don't use arrow keys
+noremap OA i STOP USING ARROW KEYS, DUMBASS!! 
+noremap OB i STOP USING ARROW KEYS, DUMBASS!! 
+noremap OC i STOP USING ARROW KEYS, DUMBASS!! 
+noremap OD i STOP USING ARROW KEYS, DUMBASS!! 
