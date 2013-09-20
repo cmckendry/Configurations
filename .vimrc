@@ -14,29 +14,26 @@ set ttyfast
 " Add the g flag to search/replace by default
 set gdefault
 " Use UTF-8 without BOM
-"set encoding=utf-8 nobomb
+set encoding=utf-8 nobomb
 " Change mapleader
 "let mapleader=","
 " Don’t add empty newlines at the end of files
-"set binary
-"set noeol
-" Centralize backups, swapfiles and undo history
+set binary
+set noeol
 
-if os == 'Darwin' || os == 'Mac'
-  set backupdir=/Users/carter/.vim/backups
-  set directory=/Users/carter/.vim/swaps
-  call pathogen#incubate('/Users/carter/.vim/bundle/{}')
+" Centralize backups, swapfiles and undo history
+if strlen($SUDO_USER)
+  let realuser    = $SUDO_USER
 else
-  set backupdir=/home/carter/.vim/backups
-  set directory=/home/carter/.vim/swaps
-  set runtimepath+=/home/carter/.vim
-  call pathogen#incubate('/home/carter/.vim/bundle/{}')
+  let realuser    = $USER
 endif
+  let userhomedir = substitute(system('echo ~' . realuser), '\n', '', '')
+  let &backupdir  = userhomedir . '/.vim/backups'
+  let &directory  = userhomedir . '/.vim/swaps'
+  let &undodir    = /home/carter/.vim/undo
+  call pathogen#incubate(userhomedir . "/.vim/bundle/{}")
 " PATH O GEN
 execute pathogen#infect()
-"if exists("&undodir")
-"  set undodir=/home/carter/.vim/undo
-"endif
 
 " Respect modeline in files
 "set modeline
