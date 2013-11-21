@@ -146,6 +146,8 @@ endif
 
 " Run as python and show results (Shift-P)
 noremap <buffer> <S-p> :w<CR>:!/usr/bin/env python % <CR>
+" Run as ruby and show results (Option-R)
+noremap <buffer>  :w<CR>:!/usr/bin/env ruby % <CR>
 let g:neocomplcache_enable_at_startup = 1
 
 " Use tab key as escape to switch modes
@@ -247,6 +249,10 @@ highlight OverLength ctermbg = red ctermfg = white guibg = #592929
 
 " Don't use arrow keys
 noremap OA i STOP USING ARROW KEYS, DUMBASS!! 
+noremap <Up> i STOP USING ARROW KEYS, DUMBASS!! 
 noremap OB i STOP USING ARROW KEYS, DUMBASS!! 
+noremap <Left> i STOP USING ARROW KEYS, DUMBASS!! 
 noremap OC i STOP USING ARROW KEYS, DUMBASS!! 
+noremap <Down> i STOP USING ARROW KEYS, DUMBASS!! 
 noremap OD i STOP USING ARROW KEYS, DUMBASS!! 
+noremap <Right> i STOP USING ARROW KEYS, DUMBASS!! 

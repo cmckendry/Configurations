@@ -33,6 +33,8 @@
   unfuck = !git fetch origin && git reset --hard FETCH_HEAD && git checkout . && git clean -f -x -d && git submodule update && git rebase --abort && git merge --abort
   # View files changed in last N commits
   last = "!f() { git diff --name-status -r "HEAD~$1"; }; f"
+  # Update the sensible way
+  up = !git pull --rebase && git submodule update --init --recursive
 
 [apply]
   # Detect whitespace errors when applying a patch
