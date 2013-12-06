@@ -20,4 +20,4 @@ Thumbs.db
 .vim/bundle/YouCompleteMe/python/ycm_core.so
 
 # Let's not keep vim swap files across machines
-.vim/swaps/*.swp
+.vim/swaps/

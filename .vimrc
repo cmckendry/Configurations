@@ -173,6 +173,7 @@ let g:syntastic_puppet_puppetlint_args = '--no-80chars-check --no-documentation-
 " Folding
 set foldmethod=indent
 set foldcolumn=3
+set foldlevelstart=99
 setlocal shiftwidth=2
 highlight Folded ctermfg=DarkGreen ctermbg=Black
 nnoremap <space> za
@@ -243,6 +244,10 @@ let g:airline_symbols.linenr     = 'Þ'
 let g:airline_symbols.branch     = '⎇'
 let g:airline_symbols.paste      = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
+function! AirlineInit()
+  let g:airline_section_y = airline#section#create(['ffenc', '%{strftime("%H:%M:%S")}'])
+endfunction
+autocmd VimEnter * call AirlineInit()
 
 " Lines that are too long get colored red
 highlight OverLength ctermbg = red ctermfg = white guibg = #592929
