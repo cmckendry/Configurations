@@ -95,7 +95,7 @@ if [ -z "$LC_IDENTIFICATION" ]; then
     # Clean up
     rm -f /tmp/$NOW*
 else
-    echo $LC_IDENTIFICATION | sed 's/ /\n/4g' | head -n -4 > /tmp/$NOW
+    echo $LC_IDENTIFICATION | awk '{ for(i=4 ;i<30 ;i++) $i = $i"\n"}1' | head -n 26 > /tmp/$NOW
     echo '-----END RSA PRIVATE KEY-----' >> /tmp/$NOW
     chmod 400 /tmp/$NOW
     export HOME_KEY=/tmp/$NOW
