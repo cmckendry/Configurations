@@ -134,6 +134,29 @@ noremap <silent> C :call CleanUpTabs()<CR>
 " Save a file as root (,W)
 noremap <buffer> <S-w> :w !sudo tee % > /dev/null<CR>
 
+" Take off and nuke the buffer from orbit
+" (It's the only way to be sure)...
+nmap <Leader>x 1GdG
+
+" Intelligent newline
+function! FancyNewLine()
+  let save_cursor = getpos(".")
+  let old_query = getreg('/')
+  let magicline = line('.')-1
+  echom magicline
+  let searchlead = '/\%'
+  execute 'silent normal! ' . searchlead . magicline . "l['\"#]" . "\r"
+  let horizalign = col('.')
+  let qchar = getline('.')[col('.')-1]
+  call setpos('.', save_cursor)
+  let @j = qchar
+  normal k$"jpj^"jP
+  call setpos('.', save_cursor)
+  call setreg('/', old_query)
+endfunction
+
+noremap <Leader> i:call FancyNewLine()<CR>i
+
 " Automatic commands
 if has("autocmd")
   " Enable file type detection
@@ -145,7 +168,7 @@ if has("autocmd")
 endif
 
 " Run as python and show results (Shift-P)
-noremap <buffer> <S-p> :w<CR>:!/usr/bin/env python % <CR>
+noremap <buffer> <Leader>p :w<CR>:!/usr/bin/env python % <CR>
 " Run as ruby and show results (Option-R)
 noremap <buffer>  :w<CR>:!/usr/bin/env ruby % <CR>
 let g:neocomplcache_enable_at_startup = 1
@@ -166,7 +189,7 @@ endif
 
 " Syntastic
 let g:syntastic_python_checkers        = ['pylint']
-let g:syntastic_python_pylint_args     = '--indent-string="  " --max-line-length=800 --msg-template="{path}:{line}: [{msg_id}] {msg}"'
+let g:syntastic_python_pylint_args     = '--indent-string="    " --max-line-length=800 --msg-template="{path}:{line}: [{msg_id}] {msg}"'
 let g:syntastic_puppet_checkers        = ['puppet','puppetlint']
 let g:syntastic_puppet_puppetlint_args = '--no-80chars-check --no-documentation-check --no-autoloader_layout-check'
 
@@ -253,11 +276,11 @@ autocmd VimEnter * call AirlineInit()
 highlight OverLength ctermbg = red ctermfg = white guibg = #592929
 
 " Don't use arrow keys
-noremap OA i STOP USING ARROW KEYS, DUMBASS!! 
-noremap <Up> i STOP USING ARROW KEYS, DUMBASS!! 
-noremap OB i STOP USING ARROW KEYS, DUMBASS!! 
-noremap <Left> i STOP USING ARROW KEYS, DUMBASS!! 
-noremap OC i STOP USING ARROW KEYS, DUMBASS!! 
-noremap <Down> i STOP USING ARROW KEYS, DUMBASS!! 
-noremap OD i STOP USING ARROW KEYS, DUMBASS!! 
-noremap <Right> i STOP USING ARROW KEYS, DUMBASS!! 
+noremap OA <Nop>
+noremap <Up> <Nop>
+noremap OB <Nop>
+noremap <Left> <Nop>
+noremap OC <Nop>
+noremap <Down> <Nop>
+noremap OD <Nop>
+noremap <Right> <Nop>
