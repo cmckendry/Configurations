@@ -284,3 +284,7 @@ noremap OC <Nop>
 noremap <Down> <Nop>
 noremap OD <Nop>
 noremap <Right> <Nop>
+
+" VCL highlighting
+au BufRead,BufNewFile *.vcl :set ft=vcl
+au! Syntax vcl source /home/carter/.vim/syntax/vcl.vim
