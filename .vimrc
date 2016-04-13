@@ -192,6 +192,9 @@ let g:syntastic_python_checkers        = ['pylint']
 let g:syntastic_python_pylint_args     = '--indent-string="    " --max-line-length=800 --msg-template="{path}:{line}: [{msg_id}] {msg}"'
 let g:syntastic_puppet_checkers        = ['puppet','puppetlint']
 let g:syntastic_puppet_puppetlint_args = '--no-80chars-check --no-documentation-check --no-autoloader_layout-check'
+let g:syntastic_javascript_checkers    = ['eslint']
+let g:syntastic_javascript_eslint_args = '--config /Users/carter/projects/dynamic-image-service/node_modules/eslint-config-1stdibs/index.js'
+let g:syntastic_check_on_open = 1
 
 " Folding
 set foldmethod=indent
