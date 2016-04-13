@@ -256,7 +256,7 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager    = 0
 
 " Use UltiSnips but make it leave Tab alone
-let g:UltiSnipsSnippetDirectories = [ "UltiSnips", "snippets" ]
+let g:UltiSnipsSnippetDirectories = [ "UltiSnips" ]
 let g:UltiSnipsSnippetsDir        = '~/.vim/snippets/'
 let g:UltiSnipsExpandTrigger      = "≈"
 
