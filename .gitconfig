@@ -46,7 +46,7 @@
   attributesfile = ~/.gitattributes
   # Treat spaces before tabs, lines that are indented with 8 or more spaces, and
   # all kinds of trailing whitespace as an error
-  whitespace = space-before-tab,indent-with-non-tab,trailing-space
+	whitespace = trailing-space,space-before-tab,-indent-with-non-tab,tab-in-indent,cr-at-eol
 
 [color]
   # Use colors in Git commands that are capable of colored output when
@@ -114,3 +114,5 @@ helper = /opt/boxen/bin/boxen-git-credential
 	keepBackup = false
 [mergetool]
 	prompt = false
+[core "whitespace"]
+	indent-with-non-tab = false

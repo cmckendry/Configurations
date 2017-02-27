@@ -157,6 +157,8 @@ endfunction
 
 noremap <Leader> i:call FancyNewLine()<CR>i
 
+" Per-filetype commands
+
 " Automatic commands
 if has("autocmd")
   " Enable file type detection
@@ -166,6 +168,8 @@ if has("autocmd")
   " Give a visual indicator of the PEP8 line-length guideline
   autocmd BufNewFile,BufRead *.py match OverLength /\%81v.\+/
 endif
+
+au FileType puppet setlocal shiftwidth=2
 
 " Run as python and show results (Shift-P)
 noremap <buffer> <Leader>p :w<CR>:!/usr/bin/env python % <CR>
@@ -189,18 +193,19 @@ endif
 
 " Syntastic
 let g:syntastic_python_checkers        = ['pylint']
-let g:syntastic_python_pylint_args     = '--indent-string="    " --max-line-length=800 --msg-template="{path}:{line}: [{msg_id}] {msg}"'
+let g:syntastic_python_pylint_args     = '--indent-string="    " --max-line-length=800 --disable=missing-docstring,superfluous-parens --msg-template="{path}:{line}: [{msg_id}] {msg}"'
 let g:syntastic_puppet_checkers        = ['puppet','puppetlint']
 let g:syntastic_puppet_puppetlint_args = '--no-80chars-check --no-documentation-check --no-autoloader_layout-check'
 let g:syntastic_javascript_checkers    = ['eslint']
-let g:syntastic_javascript_eslint_args = '--config /Users/carter/projects/dynamic-image-service/node_modules/eslint-config-1stdibs/index.js'
+let g:syntastic_javascript_eslint_exec = '/usr/local/bin/eslint'
+let g:syntastic_javascript_eslint_args = '-c ~carter/.eslintrc.js'
 let g:syntastic_check_on_open = 1
 
 " Folding
 set foldmethod=indent
 set foldcolumn=3
 set foldlevelstart=99
-setlocal shiftwidth=2
+setlocal shiftwidth=4
 highlight Folded ctermfg=DarkGreen ctermbg=Black
 nnoremap <space> za
 vnoremap <space> zf
