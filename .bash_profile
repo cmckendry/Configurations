@@ -88,21 +88,21 @@ cd
 ## Passwordless SSH "phone home" functionality
 ## SUPER HACKY
 # Grap epoch time for use as a (good enough) unique ID
-export NOW=`date +%s`
-if [ -z "$LC_IDENTIFICATION" ]; then
-    # Generate the key/save to tmp file
-    ssh-keygen -q -t rsa -N "" -f /tmp/$NOW
-    # Drop the private key into an env variable
-    export LC_IDENTIFICATION=`cat /tmp/$NOW`
-    # Add the public key
-    cat /tmp/$NOW.pub | sed "s/$USER@`hostname`/$NOW/" >> ~/.ssh/authorized_keys
-    # Clean up
-    rm -f /tmp/$NOW*
-else
-    echo $LC_IDENTIFICATION | awk '{ for(i=4 ;i<30 ;i++) $i = $i"\n"}1' | head -n 26 > /tmp/$NOW
-    echo '-----END RSA PRIVATE KEY-----' >> /tmp/$NOW
-    chmod 400 /tmp/$NOW
-    export HOME_KEY=/tmp/$NOW
-    # Be careful not to get into a weird...loop thing
-    unset LC_IDENTIFICATION
-fi
+#export NOW=`date +%s`
+#if [ -z "$LC_IDENTIFICATION" ]; then
+#    # Generate the key/save to tmp file
+#    ssh-keygen -q -t rsa -N "" -f /tmp/$NOW
+#    # Drop the private key into an env variable
+#    export LC_IDENTIFICATION=`cat /tmp/$NOW`
+#    # Add the public key
+#    cat /tmp/$NOW.pub | sed "s/$USER@`hostname`/$NOW/" >> ~/.ssh/authorized_keys
+#    # Clean up
+#    rm -f /tmp/$NOW*
+#else
+#    echo $LC_IDENTIFICATION | awk '{ for(i=4 ;i<30 ;i++) $i = $i"\n"}1' | head -n 26 > /tmp/$NOW
+#    echo '-----END RSA PRIVATE KEY-----' >> /tmp/$NOW
+#    chmod 400 /tmp/$NOW
+#    export HOME_KEY=/tmp/$NOW
+#    # Be careful not to get into a weird...loop thing
+#    unset LC_IDENTIFICATION
+#fi
