@@ -45,6 +45,9 @@ endif
 let &runtimepath = userhomedir . '/.vim,' . &runtimepath . ',' . userhomedir . '/.vim/after'
 call pathogen#incubate(userhomedir . "/.vim/bundle/{}")
 
+" Set os and user-appropriate directory for custom syntax definitions
+let syntaxdir = userhomedir . '/.vim/syntax/'
+
 " PATH O GEN
 execute pathogen#infect()
 
@@ -295,4 +298,5 @@ noremap <Right> <Nop>
 
 " VCL highlighting
 au BufRead,BufNewFile *.vcl :set ft=vcl
-au! Syntax vcl source /home/carter/.vim/syntax/vcl.vim
+exec 'au! Syntax vcl source '.syntaxdir . 'vcl.vim'
+
