@@ -268,3 +268,9 @@ function gi() {
   local IFS=,
   eval npm install --save-dev grunt-{"$*"}
 }
+
+function vcl-get() {
+  local VCL_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" 'https://api.fastly.com/service/6joTWJ0eDLaBBjfO7T0lsU' | jq '.versions[] | select(.active == true) | .number'`
+  curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/6joTWJ0eDLaBBjfO7T0lsU/version/$VCL_VER/vcl/Custom%20Configuration" | jq -r '.content'
+}
+
