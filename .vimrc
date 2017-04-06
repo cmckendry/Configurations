@@ -300,3 +300,4 @@ noremap <Right> <Nop>
 au BufRead,BufNewFile *.vcl :set ft=vcl
 exec 'au! Syntax vcl source '.syntaxdir . 'vcl.vim'
 
+inoremap # X#
