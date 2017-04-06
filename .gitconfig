@@ -46,7 +46,7 @@
   attributesfile = ~/.gitattributes
   # Treat spaces before tabs, lines that are indented with 8 or more spaces, and
   # all kinds of trailing whitespace as an error
-	whitespace = trailing-space,space-before-tab,-indent-with-non-tab,tab-in-indent,cr-at-eol
+  whitespace = trailing-space,space-before-tab,-indent-with-non-tab,tab-in-indent,cr-at-eol
 
 [color]
   # Use colors in Git commands that are capable of colored output when
@@ -68,8 +68,8 @@
 [merge]
   # Include summaries of merged commits in newly created merge commit messages
   log = true
-	tool = vimdiff
-	conflictstyle = diff3
+  tool = vimdiff
+  conflictstyle = diff3
 
 [branch "master"]
   # Use `origin` as the default remote on the `master` branch in all cases
@@ -109,10 +109,10 @@ helper = /opt/boxen/bin/boxen-git-credential
 [browser "ch"]
   cmd = open -a \"/Applications/Google Chrome.app\"
 [mergetool "diffconflicts"]
-	cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
-	trustExitCode = true
-	keepBackup = false
+  cmd = diffconflicts vim $BASE $LOCAL $REMOTE $MERGED
+  trustExitCode = true
+  keepBackup = false
 [mergetool]
-	prompt = false
+  prompt = false
 [core "whitespace"]
-	indent-with-non-tab = false
+  indent-with-non-tab = false
