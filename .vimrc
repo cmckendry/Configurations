@@ -194,14 +194,22 @@ if $VIM_CRONTAB == 'true'
   set nowritebackup
 endif
 
-" Syntastic
+" Syntax
+let g:ale_linters = {
+\   'python': ['pylint'],
+\   'puppet': ['puppet','puppetlint'],
+\   'javascript': ['eslint'],
+\}
 let g:syntastic_python_checkers        = ['pylint']
 let g:syntastic_python_pylint_args     = '--indent-string="    " --max-line-length=800 --disable=missing-docstring,superfluous-parens --msg-template="{path}:{line}: [{msg_id}] {msg}"'
+let g:ale_python_pylint_options        = '--indent-string="    " --max-line-length=800 --disable=missing-docstring,superfluous-parens --msg-template="{path}:{line}: [{msg_id}] {msg}"'
 let g:syntastic_puppet_checkers        = ['puppet','puppetlint']
 let g:syntastic_puppet_puppetlint_args = '--no-80chars-check --no-documentation-check --no-autoloader_layout-check'
 let g:syntastic_javascript_checkers    = ['eslint']
 let g:syntastic_javascript_eslint_exec = '/usr/local/bin/eslint'
+let g:ale_javascript_eslint_executable = '/usr/local/bin/eslint'
 let g:syntastic_javascript_eslint_args = '-c ~carter/.eslintrc.js'
+let g:ale_javascript_eslint_options = '-c ~carter/.eslintrc.js'
 let g:syntastic_check_on_open = 1
 
 " Folding
