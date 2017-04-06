@@ -105,3 +105,6 @@ hi link vclModes            Operator
 hi link vclOption           Identifier
 hi link vclNumber           Number
 hi link vclNumberTime       Number
+
+" Set indent level to two spaces
+set shiftwidth=2
