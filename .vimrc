@@ -173,6 +173,7 @@ if has("autocmd")
 endif
 
 au FileType puppet setlocal shiftwidth=2
+au FileType javascript setlocal shiftwidth=4 tabstop=4
 
 " Run as python and show results (Shift-P)
 noremap <buffer> <Leader>p :w<CR>:!/usr/bin/env python % <CR>
