@@ -39,5 +39,17 @@
   path = .vim/bundle/ale
   url = https://github.com/w0rp/ale.git
 [submodule "secrets"]
-	path = secrets
-	url = git@github.com:cmckendry/secrets.git
+  path = secrets
+  url = git@github.com:cmckendry/secrets.git
+[submodule ".vim/bundle/nerdtree"]
+  path = .vim/bundle/nerdtree
+  url = https://github.com/scrooloose/nerdtree
+[submodule ".vim/bundle/exuberant-ctags"]
+  path = .vim/bundle/exuberant-ctags
+  url = git@github.com:jakedouglas/exuberant-ctags.git
+[submodule ".vim/bundle/tagbar"]
+  path = .vim/bundle/tagbar
+  url = git@github.com:majutsushi/tagbar.git
+[submodule "/Users/carter/.vim/bundle/vim-devicons"]
+  path = /Users/carter/.vim/bundle/vim-devicons
+  url = https://github.com/ryanoasis/vim-devicons

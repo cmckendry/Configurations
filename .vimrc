@@ -310,3 +310,18 @@ au BufRead,BufNewFile *.vcl :set ft=vcl
 exec 'au! Syntax vcl source '.syntaxdir . 'vcl.vim'
 
 inoremap # X#
+
+let g:tagbar_type_puppet = {
+  \ 'ctagstype': 'puppet',
+  \ 'kinds': [
+    \'c:class',
+    \'s:site',
+    \'n:node',
+    \'d:definition',
+    \'r:resource',
+    \'f:default'
+  \]
+\}
+
+" NerdTree stuff
+let NERDTreeMinimalUI=1
