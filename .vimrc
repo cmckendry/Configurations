@@ -182,12 +182,12 @@ noremap <buffer>  :w<CR>:!/usr/bin/env ruby % <CR>
 let g:neocomplcache_enable_at_startup = 1
 
 " Use tab key as escape to switch modes
-nnoremap <Tab> <Esc>
-vnoremap <Tab> <Esc>gV
-onoremap <Tab> <Esc>
-inoremap <Tab> <Esc>`^
-inoremap <Leader><Tab> <Tab>
-imap <tab> <esc>
+"nnoremap <Tab> <Esc>
+"vnoremap <Tab> <Esc>gV
+"onoremap <Tab> <Esc>
+"inoremap <Tab> <Esc>`^
+"inoremap <Leader><Tab> <Tab>
+"imap <tab> <esc>
 
 " Make crontab actually work
 if $VIM_CRONTAB == 'true'
@@ -223,9 +223,9 @@ nnoremap <space> za
 vnoremap <space> zf
 
 " YouCompleteMe
-let g:ycm_key_list_select_completion                = ['<S-TAB>', 'Enter', '<Down>']
-let g:ycm_key_list_previous_completion              = ['<Up>']
-let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_key_list_select_completion                = ['<S-TAB>', 'Enter', '<Down>']
+"let g:ycm_key_list_previous_completion              = ['<Up>']
+"let g:ycm_autoclose_preview_window_after_completion = 1
 
 " Sometimes relative line numbers are useful
 function! NumberToggle()
@@ -274,8 +274,11 @@ let g:gitgutter_eager    = 0
 
 " Use UltiSnips but make it leave Tab alone
 let g:UltiSnipsSnippetDirectories = [ "UltiSnips" ]
-let g:UltiSnipsSnippetsDir        = '~/.vim/snippets/'
-let g:UltiSnipsExpandTrigger      = "≈"
+let g:UltiSnipsSnippetsDir        = userhomedir . '/.vim/snippets/'
+"let g:UltiSnipsExpandTrigger      = "≈"
+let g:UltiSnipsExpandTrigger      = "<tab>"
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
 
 " Airline
 let g:airline_powerline_fonts = 0
