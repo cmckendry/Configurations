@@ -43,10 +43,10 @@
   url = https://github.com/scrooloose/nerdtree
 [submodule ".vim/bundle/exuberant-ctags"]
   path = .vim/bundle/exuberant-ctags
-  url = git@github.com:jakedouglas/exuberant-ctags.git
+  url = https://github.com:jakedouglas/exuberant-ctags
 [submodule ".vim/bundle/tagbar"]
   path = .vim/bundle/tagbar
-  url = git@github.com:majutsushi/tagbar.git
+  url = https://github.com:majutsushi/tagbar
 [submodule ".vim/bundle/vim-devicons"]
   path = .vim/bundle/vim-devicons
   url = https://github.com/ryanoasis/vim-devicons
