@@ -42,6 +42,7 @@ let &undodir     = userhomedir . '/.vim/undo'
 if !isdirectory(&undodir)
   call mkdir(&undodir, "p")
 endif
+set undofile
 let &runtimepath = userhomedir . '/.vim,' . &runtimepath . ',' . userhomedir . '/.vim/after'
 call pathogen#incubate(userhomedir . "/.vim/bundle/{}")
 
