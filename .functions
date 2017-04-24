@@ -270,7 +270,40 @@ function gi() {
 }
 
 function vcl-get() {
-  local VCL_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" 'https://api.fastly.com/service/6joTWJ0eDLaBBjfO7T0lsU' | jq '.versions[] | select(.active == true) | .number'`
-  curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/6joTWJ0eDLaBBjfO7T0lsU/version/$VCL_VER/vcl/Custom%20Configuration" | jq -r '.content'
+  local VCL_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions[] | select(.active == true) | .number'`
+  curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE/version/$VCL_VER/vcl/www.1stdibs.com" | jq -r '.content' > ~/Downloads/www.1stdibs.com.vcl
+  }
+
+function vcl-push() {
+  if [ `curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions | max_by(.number) | .locked'` == 'true' ]; then
+    echo "Current version locked, creating new version"
+    local VCL_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions[] | select(.active == true) | .number'`
+    curl -X PUT -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE/version/$VCL_VER/clone" | jq '.' || echo
+    ## TODO: reduce this to one call by properly parsing the response from the create-version req
+    local MAX_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions | max_by(.number) | .number'`
+  else
+    local MAX_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions | max_by(.number) | .number'`
+  fi
+  curl -s -X PUT -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE/version/$MAX_VER/vcl/www.1stdibs.com" --data-urlencode "content=`cat ~/Downloads/www.1stdibs.com.vcl`" | jq '.'
+  echo "SUCCESS"
+}
+
+function vcl-diff() {
+  local ACTIVE_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions[] | select(.active == true) | .number'`
+  local MAX_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions | max_by(.number) | .number'`
+  curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE/diff/from/$ACTIVE_VER/to/$MAX_VER" | jq -r '.diff' | egrep -C 10 '^-.*|^\+'
+}
+
+function vcl-stage-diff() {
+  local STAGE_ACTIVE_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions[] | select(.active == true) | .number'`
+  local PROD_ACTIVE_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions[] | select(.active == true) | .number'`
+  curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE/version/$STAGE_ACTIVE_VER/vcl/stage.1stdibs.com.vcl" | jq -r '.content' > /tmp/stage.vcl
+  curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE/version/$PROD_ACTIVE_VER/vcl/www.1stdibs.com" | jq -r '.content' > /tmp/prod.vcl
+  diff /tmp/stage.vcl /tmp/prod.vcl
+}
+
+function vcl-activate() {
+  local MAX_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE" | jq '.versions | max_by(.number) | .number'`
+  curl -X PUT -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE/version/$MAX_VER/activate" | jq '.'
 }
 
