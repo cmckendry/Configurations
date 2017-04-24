@@ -53,3 +53,6 @@
 [submodule "/Users/carter/.vim/bundle/vim-devicons"]
   path = /Users/carter/.vim/bundle/vim-devicons
   url = https://github.com/ryanoasis/vim-devicons
+[submodule "/home/carter/Configurations/.vim/bundle/UltiSnips"]
+  path = /home/carter/Configurations/.vim/bundle/UltiSnips
+  url = https://github.com/SirVer/UltiSnips
