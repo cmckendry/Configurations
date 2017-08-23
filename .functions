@@ -307,3 +307,46 @@ function vcl-activate() {
   curl -X PUT -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE/version/$MAX_VER/activate" | jq '.'
 }
 
+###############
+
+function vcl-get-stage() {
+  local VCL_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions[] | select(.active == true) | .number'`
+  curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE/version/$VCL_VER/vcl/stage.1stdibs.com.vcl" | jq -r '.content' > ~/Downloads/stage.1stdibs.com.vcl
+  }
+
+function vcl-push-stage() {
+  if [ `curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions | max_by(.number) | .locked'` == 'true' ]; then
+    echo "Current version locked, creating new version"
+    local VCL_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions[] | select(.active == true) | .number'`
+    curl -X PUT -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE/version/$VCL_VER/clone" | jq '.' || echo
+    ## TODO: reduce this to one call by properly parsing the response from the create-version req
+    local MAX_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions | max_by(.number) | .number'`
+  else
+    local MAX_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions | max_by(.number) | .number'`
+  fi
+  curl -s -X PUT -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE/version/$MAX_VER/vcl/stage.1stdibs.com.vcl" --data-urlencode "content=`cat ~/Downloads/stage.1stdibs.com.vcl`" | jq '.'
+  echo "SUCCESS"
+}
+
+function vcl-diff-stage() {
+  local ACTIVE_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions[] | select(.active == true) | .number'`
+  local MAX_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions | max_by(.number) | .number'`
+  curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE/diff/from/$ACTIVE_VER/to/$MAX_VER" | jq -r '.diff' | egrep -C 10 '^-.*|^\+'
+}
+
+function vcl-activate-stage() {
+  local MAX_VER=`curl -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE" | jq '.versions | max_by(.number) | .number'`
+  curl -X PUT -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_STAGE_SERVICE/version/$MAX_VER/activate" | jq '.'
+}
+
+function twitch() {
+  youtube-dl --quiet --no-warnings -f 480p --cookies ~/twitch-cookies "${1}" -o - | /Applications/VLC.app/Contents/MacOS/VLC --no-interact --quiet - &
+}
+
+function cleanup() {
+  local TODAY=`date +%Y-%m-%d`
+  find /data/logs/tomcat/ -regextype posix-egrep -type f -regex '.*.log' -and -not -regex ".*${TODAY}.log" -delete
+  for LOGFILE in `find /data/logs/tomcat/ -regextype posix-egrep -type f -regex ".*${TODAY}.log"`; do sudo sh -c "echo '' > $LOGFILE"; done
+  for DEPLOYABLE in /data/*; do for SNAPSHOT in `sudo find $DEPLOYABLE -maxdepth 1 -regextype posix-egrep -type d -regex '.*_201[0-9]{10}' | sort -n | head -n -1`; do sudo rm -rf $SNAPSHOT; done; done
+}
+

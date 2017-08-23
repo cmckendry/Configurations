@@ -21,6 +21,8 @@ set encoding=utf-8 nobomb
 set binary
 set noeol
 
+let cwd = getcwd()
+
 " Centralize backups, swapfiles and undo history
 " even when running under sudo
 if strlen($SUDO_USER)
@@ -210,8 +212,13 @@ let g:syntastic_puppet_puppetlint_args = '--no-80chars-check --no-documentation-
 let g:syntastic_javascript_checkers    = ['eslint']
 let g:syntastic_javascript_eslint_exec = '/usr/local/bin/eslint'
 let g:ale_javascript_eslint_executable = '/usr/local/bin/eslint'
-let g:syntastic_javascript_eslint_args = '-c ~carter/.eslintrc.js'
-let g:ale_javascript_eslint_options = '-c ~carter/.eslintrc.js'
+if filereadable(cwd . '/.eslintrc.js')
+  let g:syntastic_javascript_eslint_args = '-c ./.eslintrc.js'
+  let g:ale_javascript_eslint_options = '-c ./.eslintrc.js'
+else
+  let g:syntastic_javascript_eslint_args = '-c ~carter/.eslintrc.js'
+  let g:ale_javascript_eslint_options = '-c ~carter/.eslintrc.js'
+endif
 let g:syntastic_check_on_open = 1
 
 " Folding
@@ -329,3 +336,13 @@ let g:tagbar_type_puppet = {
 
 " NerdTree stuff
 let NERDTreeMinimalUI=1
+
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'eruby' : 1,
+    \}
+
+
+

@@ -1,7 +1,7 @@
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra,secrets}; do
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
   [ -r "$file" ] && source "$file"
 done
 unset file
@@ -84,6 +84,13 @@ cd
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+
+if [ -f ~/Configurations/secrets/.secrets ]; then
+    source ~/Configurations/secrets/.secrets
+else
+    git clone git@github.com:cmckendry/secrets.git ~/Configurations/secrets > /dev/null
+    source ~/Configurations/secrets/.secrets
+fi
 
 ## Passwordless SSH "phone home" functionality
 ## SUPER HACKY
