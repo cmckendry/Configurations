@@ -177,3 +177,5 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 # Convoluted method for "backtracking" on an ssh connection
 alias phonehome="ssh -i $HOME_KEY `echo $SSH_CLIENT|awk '{ print $1 }'`"
 
+alias csv2grid="sed 's/\([^\"]\),\([^\"]\)/\1\2/g' | column -s"," -t | sed 's/\"//g'"
+
