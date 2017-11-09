@@ -1,3 +1,5 @@
+unamestr=`uname`
+
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
@@ -113,3 +115,9 @@ fi
 #    # Be careful not to get into a weird...loop thing
 #    unset LC_IDENTIFICATION
 #fi
+
+# Needed for VCL (and ffmpeg?) to handle subtitles correctly on macOS
+if [[ "$unamestr" == 'Darwin' ]]; then
+    launchctl setenv FONTCONFIG_PATH /opt/X11/lib/X11/fontconfig
+fi
+

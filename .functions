@@ -307,6 +307,30 @@ function vcl-activate() {
   curl -X PUT -s -H "Fastly-Key: $FASTLY_KEY" "https://api.fastly.com/service/$FASTLY_PROD_SERVICE/version/$MAX_VER/activate" | jq '.'
 }
 
+function urlencode() {
+  # urlencode <string>
+  old_lc_collate=$LC_COLLATE
+  LC_COLLATE=C
+
+  local length="${#1}"
+  for (( i = 0; i < length; i++ )); do
+      local c="${1:i:1}"
+      case $c in
+          [a-zA-Z0-9.~_-]) printf "$c" ;;
+          *) printf '%%%02X' "'$c" ;;
+      esac
+  done
+
+  LC_COLLATE=$old_lc_collate
+}
+
+function urldecode() {
+  # urldecode <string>
+
+  local url_encoded="${1//+/ }"
+  printf '%b' "${url_encoded//%/\\x}"
+}
+
 ###############
 
 function vcl-get-stage() {
@@ -340,7 +364,17 @@ function vcl-activate-stage() {
 }
 
 function twitch() {
-  youtube-dl --quiet --no-warnings -f 480p --cookies ~/twitch-cookies "${1}" -o - | /Applications/VLC.app/Contents/MacOS/VLC --no-interact --quiet - &
+  youtube-dl --quiet --no-warnings -f "best[height=480],best[height=720],best" --cookies ~/twitch-cookies "https://twitch.tv/${1}" -o - | /Applications/VLC.app/Contents/MacOS/VLC --no-video-deco --no-embedded-video --no-interact --quiet - &
+}
+
+function twitchlist() {
+  local FOLLOWING=`curl -s -H 'Accept: application/vnd.twitchtv.v5+json' -H "Client-ID: ${TWITCH_KEY}" 'https://api.twitch.tv/kraken/users/36438898/follows/channels?limit=100' | jq -r '.follows[].channel | ._id' | awk -v ORS=, '{ print $1 }'`
+  curl -s -H 'Accept: application/vnd.twitchtv.v5+json' -H "Client-ID: ${TWITCH_KEY}" "https://api.twitch.tv/kraken/streams?channel=${FOLLOWING}" | jq -r '.streams[] | select(.stream_type=="live") | [.channel.name, .channel.display_name, .channel.status, .game, .viewers] | @csv' | awk -F',' '{ if ($1 == tolower($2)) { printf $2"," } else { printf $1"("$2")," } {for (i=3; i<=NF; i++) printf "%s,",$i} print '\r' }' | sed 's/"("/(/;s/")/)"/' | sed 's/\([^"]\),/\1/g' | column -s"," -t | sed 's/"//g'
+}
+
+function twitchgame() {
+  local GAMETITLE=`urlencode "${1}"`
+  curl -s -H 'Accept: application/vnd.twitchtv.v5+json' -H "Client-ID: ${TWITCH_KEY}" "https://api.twitch.tv/kraken/streams?game=${GAMETITLE}&language=en&limit=20&offset=0" | jq -r '.streams[] | [.channel.name, .channel.display_name,.game,.viewers,.channel.status] | @csv' | awk -F',' '{ if ($1 == tolower($2)) { printf $2"," } else { printf $1"("$2")," } {for (i=3; i<=NF; i++) printf "%s,",$i} print '\r' }' | sed 's/"("/(/;s/")/)"/' | sed 's/\([^"]\),/\1/g' | column -s"," -t | sed 's/"//g'
 }
 
 function cleanup() {
@@ -348,5 +382,16 @@ function cleanup() {
   find /data/logs/tomcat/ -regextype posix-egrep -type f -regex '.*.log' -and -not -regex ".*${TODAY}.log" -delete
   for LOGFILE in `find /data/logs/tomcat/ -regextype posix-egrep -type f -regex ".*${TODAY}.log"`; do sudo sh -c "echo '' > $LOGFILE"; done
   for DEPLOYABLE in /data/*; do for SNAPSHOT in `sudo find $DEPLOYABLE -maxdepth 1 -regextype posix-egrep -type d -regex '.*_201[0-9]{10}' | sort -n | head -n -1`; do sudo rm -rf $SNAPSHOT; done; done
+}
+
+function nsl() {
+  local DIGRES=`dig +nocomment +noquestion +nocmd +noauthority +noadditional $1`
+  echo $DIGRES | sed -n 's/.*SERVER: \([0-9\.\#]*\)(\([0-9\.]*\)).*/Server:         \2/p'
+  echo $DIGRES | sed -n 's/.*SERVER: \([0-9\.\#]*\)(\([0-9\.]*\)).*/Address:        \1/p'
+  echo
+  echo "Non-authoritative answer:"
+  echo $DIGRES | awk '{ print "Name:   "$1 }' | sed 's/\.$//'
+  echo $DIGRES | sed -n 's/.*IN A \([0-9\.]*\).*/Address: \1/p'
+  echo
 }
 
