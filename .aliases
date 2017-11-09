@@ -181,3 +181,5 @@ alias csv2grid="sed 's/\([^\"]\),\([^\"]\)/\1\2/g' | column -s"," -t | sed 's/\"
 
 alias dns="dig +short"
 
+alias sum="awk '{for(i=1;i<=NF;i++) { total += \$1 } } END { printf \"%0.f \n\",total }'"
+
