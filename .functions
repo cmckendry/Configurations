@@ -374,7 +374,7 @@ function twitchlist() {
 
 function twitchgame() {
   local GAMETITLE=`urlencode "${1}"`
-  curl -s -H 'Accept: application/vnd.twitchtv.v5+json' -H "Client-ID: ${TWITCH_KEY}" "https://api.twitch.tv/kraken/streams?game=${GAMETITLE}&language=en&limit=20&offset=0" | jq -r '.streams[] | [.channel.name, .channel.display_name,.game,.viewers,.channel.status] | @csv' | awk -F',' '{ if ($1 == tolower($2)) { printf $2"," } else { printf $1"("$2")," } {for (i=3; i<=NF; i++) printf "%s,",$i} print '\r' }' | sed 's/"("/(/;s/")/)"/' | sed 's/\([^"]\),/\1/g' | column -s"," -t | sed 's/"//g'
+  curl -s -H 'Accept: application/vnd.twitchtv.v5+json' -H "Client-ID: ${TWITCH_KEY}" "https://api.twitch.tv/kraken/streams?game=${GAMETITLE}&language=en&limit=20&offset=0" | jq -r '.streams[] | [.channel.name, .channel.display_name,.game,(.viewers|tostring),.channel.status] | @csv' | awk -F',' '{ if ($1 == tolower($2)) { printf $2"," } else { printf $1"("$2")," } {for (i=3; i<=NF; i++) printf "%s,",$i} print '\r' }' | sed 's/"("/(/;s/")/)"/' | sed 's/\([^"]\),/\1/g' | column -s"," -t | sed 's/"//g'
 }
 
 function cleanup() {
@@ -382,6 +382,11 @@ function cleanup() {
   find /data/logs/tomcat/ -regextype posix-egrep -type f -regex '.*.log' -and -not -regex ".*${TODAY}.log" -delete
   for LOGFILE in `find /data/logs/tomcat/ -regextype posix-egrep -type f -regex ".*${TODAY}.log"`; do sudo sh -c "echo '' > $LOGFILE"; done
   for DEPLOYABLE in /data/*; do for SNAPSHOT in `sudo find $DEPLOYABLE -maxdepth 1 -regextype posix-egrep -type d -regex '.*_201[0-9]{10}' | sort -n | head -n -1`; do sudo rm -rf $SNAPSHOT; done; done
+}
+
+function clapback() {
+  echo $@ | tr [:lower:] [:upper:] | awk 'BEGIN{OFS=" :clap::skin-tone-2: ";} {$1=$1; print $0 " :clap::skin-tone-2:"}'
+  echo $@ | tr [:lower:] [:upper:] | awk 'BEGIN{OFS="👏";} {$1=$1; print $0 "👏"}'
 }
 
 function nsl() {
