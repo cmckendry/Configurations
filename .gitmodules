@@ -41,9 +41,6 @@
 [submodule ".vim/bundle/nerdtree"]
   path = .vim/bundle/nerdtree
   url = https://github.com/scrooloose/nerdtree
-[submodule ".vim/bundle/exuberant-ctags"]
-  path = .vim/bundle/exuberant-ctags
-  url = https://github.com/jakedouglas/exuberant-ctags
 [submodule ".vim/bundle/tagbar"]
   path = .vim/bundle/tagbar
   url = https://github.com/majutsushi/tagbar
@@ -54,5 +51,5 @@
   path = .vim/bundle/UltiSnips
   url = https://github.com/SirVer/UltiSnips
 [submodule ".vim/bundle/MatchTagAlways"]
-        path = .vim/bundle/MatchTagAlways
-        url = https://github.com/Valloric/MatchTagAlways.git
+  path = .vim/bundle/MatchTagAlways
+  url = https://github.com/Valloric/MatchTagAlways.git
