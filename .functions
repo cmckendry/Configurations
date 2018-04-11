@@ -400,3 +400,10 @@ function nsl() {
   echo
 }
 
+function get_ticket() {
+  local TICKET=`curl -s -u ${JIRA_USER}:${JIRA_PASS} -X GET -H "Content-Type: application/json" "https://1stdibs.atlassian.net/rest/api/latest/issue/${1}"`
+  local KEY=`echo "${TICKET}" | jq -r '.key'`
+  local SUMMARY=`echo "${TICKET}" | jq -r '.fields.summary'`
+  echo $KEY - $SUMMARY
+}
+
