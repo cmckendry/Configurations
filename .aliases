@@ -186,3 +186,6 @@ alias sum="awk '{for(i=1;i<=NF;i++) { total += \$1 } } END { printf \"%0.f \n\",
 # Always enable colored `grep` output
 alias grep="grep --color=auto "
 
+# Retrieve torrent file from magnet URI
+alias demagnetize="aria2c --bt-metadata-only=true --bt-save-metadata=true "
+
