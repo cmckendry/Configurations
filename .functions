@@ -407,3 +407,7 @@ function get_ticket() {
   echo $KEY - $SUMMARY
 }
 
+function jenk() {
+  curl --user $JENKINS_USER:$JENKINS_PASS -XPOST "http://${JENKINS_HOST}/job/$@/build"
+}
+
