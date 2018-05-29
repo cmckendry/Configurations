@@ -125,6 +125,21 @@ else
     source ~/Configurations/secrets/.secrets
 fi
 
+if [ ! -f ~/Configurations/.vim/bundle/YouCompleteMe/third_party/ycmd/ycm_core.so ]; then
+    echo "No YCM lib found"
+    if [[ "$unamestr" == 'Darwin' ]]; then
+        sudo chown -R `whoami` ~/Configurations/.vim/bundle/ && cd ~/Configurations/.vim/bundle/YouCompleteMe/ && ./install.py
+    fi
+    if [[ "$unamestr" == 'Linux' ]]; then
+        if [[ "$OS" == 'CentOS Linux' ]]; then
+            echo "YUM based YCM install"
+            sudo chown -R `whoami` ~/Configurations/.vim/bundle/ > /dev/null && sudo yum -y install gcc-c++ > /dev/null && cd ~/Configurations/.vim/bundle/YouCompleteMe/ && ./install.py &> /dev/null &
+            disown $!
+            cd
+        fi
+    fi
+fi
+
 ## Passwordless SSH "phone home" functionality
 ## SUPER HACKY
 # Grap epoch time for use as a (good enough) unique ID
