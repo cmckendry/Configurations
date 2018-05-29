@@ -35,6 +35,7 @@
   path = .vim/bundle/YouCompleteMe
   url = https://github.com/Valloric/YouCompleteMe.git
   branch = master
+  ignore = dirty
 [submodule ".vim/bundle/ale"]
   path = .vim/bundle/ale
   url = https://github.com/w0rp/ale.git
