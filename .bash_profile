@@ -110,6 +110,8 @@ function vpn-disconnect {
 end tell" | /usr/bin/env osascript
 }
 
+cd ~/Configurations && git remote set-url origin git@gitlab.com:cmckendry/Configurations.git
+
 cd ~/Configurations && git pull &> /dev/null && git submodule update --init --recursive &> /dev/null &
 disown $!
 cd
@@ -119,6 +121,9 @@ cd
 [ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
 
 if [ -f ~/Configurations/secrets/.secrets ]; then
+    cd ~/Configurations/secrets && git remote set-url origin git@gitlab.com:cmckendry/secrets.git
+    git pull
+    cd
     source ~/Configurations/secrets/.secrets
 else
     git clone git@github.com:cmckendry/secrets.git ~/Configurations/secrets > /dev/null
