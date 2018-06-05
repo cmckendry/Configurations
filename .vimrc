@@ -212,6 +212,7 @@ let g:syntastic_puppet_puppetlint_args = '--no-80chars-check --no-documentation-
 let g:syntastic_javascript_checkers    = ['eslint']
 let g:syntastic_javascript_eslint_exec = '/usr/local/bin/eslint'
 let g:ale_javascript_eslint_executable = '/usr/local/bin/eslint'
+let g:ale_puppet_puppetlint_executable = '/usr/local/rvm/gems/ruby-1.9.3-p551@global/wrappers/puppet-lint'
 if filereadable(cwd . '/.eslintrc.js')
   let g:syntastic_javascript_eslint_args = '-c ./.eslintrc.js'
   let g:ale_javascript_eslint_options = '-c ./.eslintrc.js'
